@@ -968,7 +968,7 @@
 
         // ── Revfy Ads Tracking ──
         const REVFY_TRACK_URL = 'https://api.revfyads.com/api/track/';
-        const REVFY_CLICK_ID_COOKIE = 'click_id';
+        const REVFY_CLICK_ID_COOKIE = 'revfy_click_id';
 
         function setCookie(name, value, days) {
             const expires = new Date(Date.now() + days * 864e5).toUTCString();
@@ -980,18 +980,18 @@
             return match ? decodeURIComponent(match[1]) : null;
         }
 
-        // click_id vem na URL e deve ser persistido em cookie assim que a página carrega
+        // revfy_click_id vem na URL e deve ser persistido em cookie assim que a página carrega
         (function captureClickId() {
-            const fromUrl = new URLSearchParams(window.location.search).get('click_id');
+            const fromUrl = new URLSearchParams(window.location.search).get('revfy_click_id');
             if (fromUrl) {
                 setCookie(REVFY_CLICK_ID_COOKIE, fromUrl, 30);
                 logDebug({ event: 'revfy_click_id_saved', click_id: fromUrl });
             }
         })();
 
-        // Prioridade: click_id da URL, depois do cookie
+        // Prioridade: revfy_click_id da URL, depois do cookie
         function getClickId() {
-            const fromUrl = new URLSearchParams(window.location.search).get('click_id');
+            const fromUrl = new URLSearchParams(window.location.search).get('revfy_click_id');
             if (fromUrl) return fromUrl;
             return getCookie(REVFY_CLICK_ID_COOKIE);
         }
