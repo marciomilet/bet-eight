@@ -1026,13 +1026,13 @@
             fireTrackingPixel({ event_type: 'conversion', event_name: 'conversion confirmed' });
         }
 
-        // Soma de depósitos (incluindo FTD) para disparar a conversão CPA ao ultrapassar R$100
+        // Soma de depósitos (incluindo FTD) para disparar a conversão CPA ao atingir R$100
         let totalDeposited = 0;
         let conversionFired = false;
 
         function registerDepositTowardsConversion(amount) {
             totalDeposited += amount;
-            if (!conversionFired && totalDeposited > 100) {
+            if (!conversionFired && totalDeposited >= 100) {
                 conversionFired = true;
                 trackConversion();
             }
